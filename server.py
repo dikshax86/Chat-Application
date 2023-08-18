@@ -31,8 +31,9 @@ def client_handler(client):
         username=client.recv(2048).decode('utf-8')
         if username!='':
             active_clients.append((username,client))
-            prompt_msg="SERVER~"+f"added {username} to the chat"
-            send_messages_to_all(prompt_msg)
+            # prompt_msg="SERVER~"+f"added {username} to the chat"
+            prompt_msg="WELCOME~"+f"Avaliable users:- {len(active_clients)}"+f"\nusers {', '.join([user for user, _ in active_clients])}"
+            send_messages_to_client(client,prompt_msg)
             break
         else:
             print("client username is empty")
@@ -57,5 +58,3 @@ def main():
         threading.Thread(target=client_handler,args=(client, )).start()
 if __name__ == '__main__':
     main()
-
-    
